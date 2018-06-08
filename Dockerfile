@@ -1,4 +1,4 @@
-FROM php:7.1-cli
+FROM devwithlando/php
 
 RUN apt-get update \
     && apt-get install -my wget gnupg \
