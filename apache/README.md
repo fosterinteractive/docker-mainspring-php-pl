@@ -25,6 +25,7 @@ lando start
 
 # After lando has built mainspring / pattern lab we can start run gulp afte changing into the mainspring themes directory
 cd /web/themes/mainspring
+
 lando gulp
 ```
 
