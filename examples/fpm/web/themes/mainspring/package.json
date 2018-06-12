@@ -1,0 +1,8 @@
+{
+  "name": "apache",
+  "description": "Test for lando apache build",
+  "version": "1.0.0",
+  "scripts": {
+    "init": "echo 'Running npm run init'"
+  }
+}

@@ -1,4 +1,4 @@
-name: apache
+name: fpm
 recipe: drupal8
 config:
   # Optionally specify a webroot if it is a subdirectory of the appRoot
@@ -16,9 +16,10 @@ services:
         # Use custom php imag eto include node in our appserver to run patternlab
         image: fosterinteractive/docker-mainspring-php-pl:1.0-fpm
         # Make the default browsersync ports available.
-        ports:
-          - 3000:3000
-          - 3001:3001
+        # Bug: Currently the ports are not being passed to nginx server.
+        # ports:
+        #   - 3000:3000
+        #   - 3001:3001
     run_as_root:
       - "cd $LANDO_WEBROOT/themes/mainspring && npm run init"
 
