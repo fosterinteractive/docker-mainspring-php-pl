@@ -1,4 +1,4 @@
-name: fpm
+name: what
 recipe: drupal8
 config:
   # Optionally specify a webroot if it is a subdirectory of the appRoot
@@ -7,6 +7,11 @@ config:
   via: nginx
 
   database: mariadb:10.1
+
+proxy:
+  appserver:
+    - pl.fpm.lndo.site:3000
+    - pl.fpm.lndo.site:3001
 
 services:
   appserver:
@@ -23,12 +28,22 @@ services:
     run_as_root:
       - "cd $LANDO_WEBROOT/themes/mainspring && npm run init"
 
+  node:
+    type: node:9
+    globals:
+      gulp-cli: "latest"
+    overrides:
+      services:
+        ports:
+          - 3000:3000
+          - 3001:3001
+
 tooling:
   npm:
-    service: appserver
+    service: node
   node:
-    service: appserver
+    service: node
   gulp:
-    service: appserver
+    service: node
   composer:
     service: appserver
