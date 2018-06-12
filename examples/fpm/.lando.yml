@@ -1,0 +1,33 @@
+name: apache
+recipe: drupal8
+config:
+  # Optionally specify a webroot if it is a subdirectory of the appRoot
+  webroot: web
+
+  via: nginx
+
+  database: mariadb:10.1
+
+services:
+  appserver:
+    type: php:custom
+    overrides:
+      services:
+        # Use custom php imag eto include node in our appserver to run patternlab
+        image: fosterinteractive/docker-mainspring-php-pl:1.0-fpm
+        # Make the default browsersync ports available.
+        ports:
+          - 3000:3000
+          - 3001:3001
+    run_as_root:
+      - "cd $LANDO_WEBROOT/themes/mainspring && npm run init"
+
+tooling:
+  npm:
+    service: appserver
+  node:
+    service: appserver
+  gulp:
+    service: appserver
+  composer:
+    service: appserver
